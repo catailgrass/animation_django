@@ -1,5 +1,2 @@
 Django==2.0
-Pillow
-mysql-python
-uwsgi
-django-ckeditor
+requests==2.20.0

@@ -3,7 +3,7 @@
 #sed是一个Linux编辑器吧，此命令的作用是查找文件/etc/nginx/nginx.conf中包含user的行，并将此行的nginx替换成root
 sed -i '/user/{s/nginx/root/}' /etc/nginx/nginx.conf
 #将项目nginx配置连接到nginx配置
-ln -s /root/project/config/animation-ng.conf /etc/nginx/conf.d/
+ln -s /root/show_animation/config/animation-ng.conf /etc/nginx/conf.d/
 #启动nginx
 nginx
 #赋予wait-for-it.sh可执行权限
@@ -21,13 +21,12 @@ nginx
 #wait
 
 #设置manage.py中使用的setting
-export DJANGO_SETTINGS_MODULE=show_animation.settings.server
+export DJANGO_SETTINGS_MODULE=show_animation.settings
 
 #进入mysite目录（application下一级目录，不是mysite目录下的mysite）
 #刚开始也许你有点困惑，不知道现在操作的目录到底在哪里，不像通常操作Linux，我可以pwd一下。
 #其实是这样的，你以此脚本所在的位置为参照，你看项目目录结构发现，
 #start_script与目录mysite是同一级的，manage.py在mysite之下，对吧
-cd mysite
 #刷新数据库
 ./manage.py migrate --noinput
 #加载管理员用户到数据库，以便容器启动之后不必再进入容器执行python manage.py createsuperuser操作
@@ -36,6 +35,6 @@ cd mysite
 ./manage.py collectstatic --noinput
 
 #返回上级目录，mysite_uwsgi.ini所在的目录
-cd ..
+#cd ..
 #启动uwsgi
-uwsgi --ini mysite_uwsgi.ini
+uwsgi --ini animation-uwsgi.ini

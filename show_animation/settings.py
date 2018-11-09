@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'bh*s^dyw$nm8_g48o&o_5xsuqywy)(!qch@!bjk^+i+ot+2xr5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-# LOCAL_HOST = "http://adhub-dev.jiegames.com:8083/"
+LOCAL_HOST = "http://104.194.90.205:8080/"
 
 
-#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")

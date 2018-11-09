@@ -1,6 +1,6 @@
 #当你写下FROM centos:7的时候，你就要想着，在这以后的每一步操作都是在centos 7系统镜像中进行的操作，
 #你以前是怎么部署应用的，那么请按照你以前的步骤一步一步来就好。
-FROM centos:7
+FROM python:3.6
 #声明镜像制作者
 MAINTAINER flycat <catailgrass@gmail.com>
 #设置时区
@@ -11,7 +11,7 @@ ENV DOCKER_SRC=show_animation
 # 设置系统环境变量DOCKER_HOME
 ENV DOCKER_HOME=/root
 # 设置系统环境变量DOCKER_PROJECT
-ENV DOCKER_PROJECT=/root/project
+ENV DOCKER_PROJECT=/root/show_animation
 
 #这句指令相当与：cd /root
 WORKDIR $DOCKER_HOME
@@ -22,8 +22,7 @@ RUN mkdir media static
 #nc是一个网络工具，端口检测脚本wait-for-it.sh里面有使用这个软件
 RUN yum -y install epel-release && \
     yum -y install python-pip && \
-    yum -y install git nginx gcc gcc-c++ python-devel && yum -y install mysql && \
-    yum -y install mysql-devel && yum install nc -y && yum clean all && \
+    yum -y install git nginx gcc gcc-c++ python-devel  && yum install nc -y && yum clean all && \
     pip install --upgrade pip
 
 # cd $DOCKER_PROJECT
@@ -33,9 +32,9 @@ WORKDIR $DOCKER_PROJECT
 COPY ./ ./
 #这一步安装python依赖软件django、Pillow、mysql-python、uwsgi、django-ckeditor。
 #补充，-i 是修改pip源，默认的源速度很慢，经常卡在这里。
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+RUN pip install -r requirements.txt
 #暴露端口8000，到时候执行docker run 的时候才好把宿主机端口映射到8000
-EXPOSE 8080
+EXPOSE 8000
 #赋予start_script执行权限
 RUN chmod u+x start_project.sh
 #容器启动后要执行的命令
