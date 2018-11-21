@@ -2,34 +2,20 @@ version: '2'
 services:
   nginx:
     image: nginx:latest
-    container_name: animation-nginx-server
+    container_name: ng01
     ports:
-      - "8080:8080"
+      - "8000:8000"
     volumes:
-      - ./advertisement:/advertisement
-      - ./advertisement-dev:/advertisement-dev
-      - ./assets:/assets
+      - ./src:/src
+      - ./static:/static
       - ./config/nginx:/etc/nginx/conf.d
     depends_on:
-      - product
-      - dev
+      - web
   web:
-      image: yetongxue/docker_test:1.2
-      links:
-        - "db"
-      ports:
-        - "8100:8000"
-      volumes:
-        - "${DOCKER_VOLUME_PATH}/docker_test/media:/root/media"
-      restart: always
-
-  db:
-      image: mysql:5.7
-      environment:
-        TZ: 'Asia/Shanghai'
-        MYSQL_ROOT_PASSWORD: qwerasdf
-        MYSQL_DATABASE: docker_db
-      restart: always
-      command: ['mysqld', '--character-set-server=utf8']
-      volumes:
-        - "${DOCKER_VOLUME_PATH}/docker_test/db:/var/lib/mysql"
+    build: .
+    container_name: dg01
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn show_animation.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - ./src:/src
+    expose:
+      - "8000"

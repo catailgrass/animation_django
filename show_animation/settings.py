@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'bh*s^dyw$nm8_g48o&o_5xsuqywy)(!qch@!bjk^+i+ot+2xr5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -128,4 +128,5 @@ STATICFILES_DIRS = (
 LOCAL_HOST = "http://104.194.90.205:8080/"
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+# STATIC_ROOT = "/home/flycat/myproject/static"
