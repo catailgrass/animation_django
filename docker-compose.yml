@@ -14,7 +14,7 @@ services:
   web:
     build: .
     container_name: dg01
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn show_animation.wsgi -b 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --bind unix:/src/show_animation.sock show_animation.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./src:/src
     expose:
