@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-LOCAL_HOST = "http://104.194.90.205:8080/"
+# LOCAL_HOST = "http://104.194.90.205:8080/"
 
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "/static/")

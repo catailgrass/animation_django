@@ -4,7 +4,7 @@ services:
     image: nginx:latest
     container_name: ng01
     ports:
-      - "8000:8000"
+      - "8000:8080"
     volumes:
       - ./src:/src
       - ./static:/static
@@ -14,8 +14,8 @@ services:
   web:
     build: .
     container_name: dg01
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --bind unix:/src/show_animation.sock show_animation.wsgi -b 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --bind unix:/src/show_animation.sock show_animation.wsgi:application"
     volumes:
       - ./src:/src
     expose:
-      - "8000"
+      - "8080"
